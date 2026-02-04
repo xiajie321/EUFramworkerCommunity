@@ -1,0 +1,37 @@
+#if UNITY_EDITOR
+using System;
+
+namespace EUFarmworker.ExtensionManager
+{
+    [Serializable]
+    public class EUDependency
+    {
+        public string name;
+        public string gitUrl;
+        public string installPath;
+    }
+
+    [Serializable]
+    public class EUExtensionInfo
+    {
+        public string name;
+        public string displayName;
+        public string version;
+        public string description;
+        public string author;
+        public string category;
+        public string downloadUrl; // 远程跳转地址
+        public EUDependency[] dependencies; // 依赖项
+        
+        // 非序列化字段
+        [NonSerialized]
+        public string folderPath; 
+        [NonSerialized]
+        public bool isInstalled;
+        [NonSerialized]
+        public string remoteVersion; // 记录对应的远程版本号用于对比
+        [NonSerialized]
+        public string remoteFolderName; // 远程仓库中的实际文件夹名称
+    }
+}
+#endif
