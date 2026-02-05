@@ -34,21 +34,22 @@ namespace EUFarmworker.Core.MVC.Example.Script
 
         private void RunPerformanceTest()
         {
-            const int testCount = 100000;
-            const int listenerCount = 100; // 模拟高压力多播情况：200个监听者
+            const int testCount = 1000;
+            const int listenerCount = 100; // 模拟高压力多播情况：100个监听者
             Debug.Log($"<color=cyan>--- 开始性能对比测试 (执行次数: {testCount}) ---</color>");
 
             // --- 1. 单播测试 (Unicast) ---
             {
-                var euSystem = new TypeEventSystem();
                 var qfSystem = new QFramework_TypeEventSystem();
-                euSystem.Register<TestEvent>(m => { });
+                
+                // EUFarmworker 使用静态类
+                TypeEventSystem.Register<TestEvent>(m => { });
                 qfSystem.Register<TestEvent>(m => { });
 
                 // 预热
                 for (int i = 0; i < 100; i++)
                 {
-                    euSystem.Send(new TestEvent());
+                    TypeEventSystem.Send(new TestEvent());
                     qfSystem.Send(new TestEvent());
                 }
 
@@ -56,7 +57,7 @@ namespace EUFarmworker.Core.MVC.Example.Script
                 
                 var euSw = new System.Diagnostics.Stopwatch();
                 euSw.Start();
-                for (int i = 0; i < testCount; i++) euSystem.Send(new TestEvent());
+                for (int i = 0; i < testCount; i++) TypeEventSystem.Send(new TestEvent());
                 euSw.Stop();
                 long euTime = euSw.ElapsedMilliseconds;
 
@@ -72,24 +73,26 @@ namespace EUFarmworker.Core.MVC.Example.Script
                 {
                     Debug.Log($"<color=yellow>单播性能提升: {(float)(qfTime - euTime) / qfTime * 100:F2}%</color>");
                 }
+                
+                // 清理
+                TypeEventSystem.Clear();
             }
 
             Debug.Log("\n");
 
             // --- 2. 多播测试 (Multicast) ---
             {
-                var euSystem = new TypeEventSystem();
                 var qfSystem = new QFramework_TypeEventSystem();
                 for (int i = 0; i < listenerCount; i++)
                 {
-                    euSystem.Register<TestEvent>(m => { });
+                    TypeEventSystem.Register<TestEvent>(m => { });
                     qfSystem.Register<TestEvent>(m => { });
                 }
 
                 // 预热
                 for (int i = 0; i < 100; i++)
                 {
-                    euSystem.Send(new TestEvent());
+                    TypeEventSystem.Send(new TestEvent());
                     qfSystem.Send(new TestEvent());
                 }
 
@@ -97,7 +100,7 @@ namespace EUFarmworker.Core.MVC.Example.Script
 
                 var euSw = new System.Diagnostics.Stopwatch();
                 euSw.Start();
-                for (int i = 0; i < testCount; i++) euSystem.Send(new TestEvent());
+                for (int i = 0; i < testCount; i++) TypeEventSystem.Send(new TestEvent());
                 euSw.Stop();
                 long euTime = euSw.ElapsedMilliseconds;
 
@@ -113,6 +116,58 @@ namespace EUFarmworker.Core.MVC.Example.Script
                 {
                     Debug.Log($"<color=yellow>多播性能提升: {(float)(qfTime - euTime) / qfTime * 100:F2}%</color>");
                 }
+                
+                // 清理
+                TypeEventSystem.Clear();
+            }
+
+            Debug.Log("\n");
+
+            // --- 3. 注册与注销测试 (Register & UnRegister) ---
+            {
+                var qfSystem = new QFramework_TypeEventSystem();
+                Action<TestEvent> onEvent = m => { };
+
+                // 预热
+                for (int i = 0; i < 100; i++)
+                {
+                    TypeEventSystem.Register(onEvent);
+                    TypeEventSystem.UnRegister(onEvent);
+                    qfSystem.Register(onEvent);
+                    qfSystem.UnRegister(onEvent);
+                }
+
+                Debug.Log("<color=white># 注册与注销性能测试:</color>");
+
+                var euSw = new System.Diagnostics.Stopwatch();
+                euSw.Start();
+                for (int i = 0; i < testCount; i++)
+                {
+                    TypeEventSystem.Register(onEvent);
+                    TypeEventSystem.UnRegister(onEvent);
+                }
+                euSw.Stop();
+                long euTime = euSw.ElapsedMilliseconds;
+
+                var qfSw = new System.Diagnostics.Stopwatch();
+                qfSw.Start();
+                for (int i = 0; i < testCount; i++)
+                {
+                    qfSystem.Register(onEvent);
+                    qfSystem.UnRegister(onEvent);
+                }
+                qfSw.Stop();
+                long qfTime = qfSw.ElapsedMilliseconds;
+
+                Debug.Log($"EUFarmworker (Reg/UnReg): {euTime} ms");
+                Debug.Log($"QFramework (Reg/UnReg): {qfTime} ms");
+                if (qfTime > 0)
+                {
+                    Debug.Log($"<color=yellow>注册注销性能提升: {(float)(qfTime - euTime) / qfTime * 100:F2}%</color>");
+                }
+                
+                // 清理
+                TypeEventSystem.Clear();
             }
 
             Debug.Log("<color=cyan>--- 性能对比测试结束 ---</color>");
@@ -194,8 +249,6 @@ namespace EUFarmworker.Core.MVC.Example.Script
         public override void Init()
         {
             Debug.Log("TestModel");   
-            // this.SendEvent(new TestEvent());//不建议在结构体内使用(因为会产生装箱)
-            // this.GetUtility<TestUtility>();//不建议在结构体内使用(因为会产生装箱)
         }
     }
 
@@ -207,17 +260,13 @@ namespace EUFarmworker.Core.MVC.Example.Script
         public override void Init()
         {
             Debug.Log("TestSystem");
-            // this.SendEvent(new TestEvent());//不建议在结构体内使用(因为会产生装箱)
-            // this.GetModel<TestModel>();//不建议在结构体内使用(因为会产生装箱)
-            // this.GetUtility<TestUtility>();//不建议在结构体内使用(因为会产生装箱)
-            // this.GetSystem<TestSystem>();//不建议在结构体内使用(因为会产生装箱)
         }
     }
     
     /// <summary>
     /// 测试用的工具
     /// </summary>
-    public class TestUtilityBase:AbsUtilityBase//工具本身仅起到辅助作用
+    public class TestUtilityBase:AbsUtilityBase
     {
         public override void Init()
         {
@@ -225,47 +274,19 @@ namespace EUFarmworker.Core.MVC.Example.Script
         }
     }
 
-    public struct TestCommand : ICommand//无返回值的命令
+    public struct TestCommand : ICommand
     {
         public int lsValue;
         public void Execute()
         {
             Debug.Log(lsValue);
-            //this.SendCommand<TestCommandReturnInt,int>(new TestCommandReturnInt());//不建议在结构体内使用(因为会产生装箱)
-            // this.SendQuery<TestQuery,int>(new TestQuery());//不建议在结构体内使用(因为会产生装箱)
-            // this.SendEvent<TestEvent>(new TestEvent());//不建议在结构体内使用(因为会产生装箱)
-            // this.GetModel<TestModel>();//不建议在结构体内使用(因为会产生装箱)
-            // this.GetUtility<TestUtility>();//不建议在结构体内使用(因为会产生装箱)
-            // this.GetSystem<TestSystem>();//不建议在结构体内使用(因为会产生装箱)
-            
-            //this.SendCommand(new TestCommand());//无返回值默认通过泛型确定避免装箱问题
-            // this.SendCommand<TestCommand,TestCommandReturnInt,int>(new TestCommandReturnInt());//通过泛型确定避免装箱问题
-            // this.SendQuery<TestCommand,TestQuery,int>(new TestQuery());//通过泛型确定避免装箱问题
-            // this.SendEvent<TestCommand,TestEvent>(new TestEvent());//通过泛型确定类型避免装箱问题
-            // this.GetModel<TestCommand,TestModel>();//通过泛型确定类型避免装箱问题
-            // this.GetUtility<TestCommand,TestUtility>();//通过泛型确定类型避免装箱问题
-            // this.GetSystem<TestCommand,TestSystem>();//通过泛型确定类型避免装箱问题
         }
     }
 
-    public struct TestCommandReturnInt : ICommand<int>//有返回值的命令
+    public struct TestCommandReturnInt : ICommand<int>
     {
         public int Execute()
         {
-            // this.SendCommand<TestCommandReturnInt,int>(new  TestCommandReturnInt());//不建议在结构体内使用(因为会产生装箱)
-            // this.SendQuery<TestQuery,int>(new TestQuery());//不建议在结构体内使用(因为会产生装箱)
-            // this.SendEvent<TestEvent>(new TestEvent());//不建议在结构体内使用(因为会产生装箱)
-            // this.GetModel<TestModel>();//不建议在结构体内使用(因为会产生装箱)
-            // this.GetUtility<TestUtility>();//不建议在结构体内使用(因为会产生装箱)
-            // this.GetSystem<TestSystem>();//不建议在结构体内使用(因为会产生装箱)
-            //
-            // this.SendCommand(new TestCommand());//无返回值默认通过泛型确定避免装箱问题
-            // this.SendCommand<TestCommandReturnInt,TestCommandReturnInt,int>(new TestCommandReturnInt());//通过泛型确定避免装箱问题
-            // this.SendQuery<TestCommandReturnInt,TestQuery,int>(new TestQuery());//通过泛型确定避免装箱问题
-            // this.SendEvent<TestCommandReturnInt,TestEvent>(new TestEvent());//通过泛型确定类型避免装箱问题
-            // this.GetModel<TestCommandReturnInt,TestModel>();//通过泛型确定类型避免装箱问题
-            // this.GetUtility<TestCommandReturnInt,TestUtility>();//通过泛型确定类型避免装箱问题
-            // this.GetSystem<TestCommandReturnInt,TestSystem>();//通过泛型确定类型避免装箱问题
             return 1;
         }
     }
@@ -274,13 +295,6 @@ namespace EUFarmworker.Core.MVC.Example.Script
     {
         public int Execute()
         {
-            // this.SendQuery<TestQuery,int>(new TestQuery());//不建议在结构体内使用(因为会产生装箱)
-            // this.GetModel<TestModel>();//不建议在结构体内使用(因为会产生装箱)
-            // this.GetUtility<TestUtility>();//不建议在结构体内使用(因为会产生装箱)
-            //
-            // this.SendQuery<TestQuery,TestQuery,int>(new TestQuery());//通过泛型确定类型避免装箱问题
-            // this.GetModel<TestQuery,TestModel>();//通过泛型确定类型避免装箱问题
-            // this.GetUtility<TestQuery,TestUtility>();//通过泛型确定类型避免装箱问题
             return 1;
         }
     }
