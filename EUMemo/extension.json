@@ -1,16 +1,10 @@
 {
-  "name": "com.eu.res",
-  "displayName": "EU Res",
+"name": "com.eu.memo",
+  "displayName": "EU 备忘录",
   "version": "1.0.0",
-  "description": "aaaaaaaaaa",
+  "version": "1.0.1",
+  "description": "一个基于 UIToolkit 的完善备忘录工具，提供便捷的记录、管理和查看功能，帮助开发者高效管理项目任务和灵感。",
+  "author": "EUFarmworker",
   "author": "没有名字的丑兔子",
-  "category": "工具",
-  "dependencies": [
-    {
-      "name": "com.eu.YooAsset",
-      "gitUrl": "https://github.com/tuyoogame/YooAsset",
-      "installPath": "Packages",
-      "version": "2.3.18"
-    }
-  ]
+  "category": "工具"
 }
