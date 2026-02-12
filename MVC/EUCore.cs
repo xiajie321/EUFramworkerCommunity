@@ -1,7 +1,7 @@
-﻿using EUFarmworker.Core.MVC.CoreTool;
-using EUFarmworker.Core.MVC.Interface;
+﻿using EUFramework.Core.MVC.CoreTool;
+using EUFramework.Core.MVC.Interface;
 
-namespace EUFarmworker.Core.MVC
+namespace EUFramework.Core.MVC
 {
     /// <summary>
     /// 核心入口类，用于设置和管理架构

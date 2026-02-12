@@ -1,6 +1,6 @@
-﻿using EUFarmworker.Core.MVC.Interface;
+﻿using EUFramework.Core.MVC.Interface;
 
-namespace EUFarmworker.Core.MVC.Abstract
+namespace EUFramework.Core.MVC.Abstract
 {
     /// <summary>
     /// 数据模型抽象基类

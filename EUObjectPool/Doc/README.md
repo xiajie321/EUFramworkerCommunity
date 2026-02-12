@@ -21,7 +21,7 @@
 继承 `EUAbsObjectPoolBase<T>` 并实现抽象方法：
 
 ```csharp
-using EUFarmworker.Extension.EUObjectPool;
+using EUFramework.Extension.EUObjectPool;
 
 [EUObjectPool] // 标记以自动生成访问代码
 public class MyDataPool : EUAbsObjectPoolBase<MyData>
@@ -42,7 +42,7 @@ public class MyDataPool : EUAbsObjectPoolBase<MyData>
 继承 `EUAbsGameObjectPoolBase<T>`，`T` 必须是 `MonoBehaviour`：
 
 ```csharp
-using EUFarmworker.Extension.EUObjectPool;
+using EUFramework.Extension.EUObjectPool;
 using UnityEngine;
 
 [EUObjectPool]
@@ -72,7 +72,7 @@ public class MyEffectPool : EUAbsGameObjectPoolBase<MyEffectController>
 ### 3. 代码生成
 
 编写完对象池类后，点击 Unity 菜单栏：
-`EUFarmworker -> EU对象池 -> 生成注册信息`
+`EUFramework -> EU对象池 -> 生成注册信息`
 
 系统会自动更新 `EUObjectPoolManager.cs` 文件，生成静态访问入口。
 

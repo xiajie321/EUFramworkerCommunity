@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EUFarmworker.Extension.Memo
+namespace EUFramework.Extension.Memo
 {
     [Serializable]
     public class MemoLayer

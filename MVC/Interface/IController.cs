@@ -1,6 +1,6 @@
-using EUFarmworker.Core.MVC.Interface.Can;
+using EUFramework.Core.MVC.Interface.Can;
 
-namespace EUFarmworker.Core.MVC.Interface
+namespace EUFramework.Core.MVC.Interface
 {
     /// <summary>
     /// 控制器接口，通常用于表现层（View）。

@@ -1,6 +1,6 @@
-using EUFarmworker.Core.MVC.Interface.Can;
+using EUFramework.Core.MVC.Interface.Can;
 
-namespace EUFarmworker.Core.MVC.Interface
+namespace EUFramework.Core.MVC.Interface
 {
     /// <summary>
     /// 工具接口，提供通用的工具方法。

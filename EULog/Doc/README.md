@@ -21,7 +21,7 @@ EULog 默认在以下情况下自动开启：
 ### 2. 代码示例
 
 ```csharp
-using EUFarmworker;
+using EUFramework;
 
 public class Example : MonoBehaviour
 {

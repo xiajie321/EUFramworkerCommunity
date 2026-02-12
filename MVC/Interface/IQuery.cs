@@ -1,6 +1,6 @@
-using EUFarmworker.Core.MVC.Interface.Can;
+using EUFramework.Core.MVC.Interface.Can;
 
-namespace EUFarmworker.Core.MVC.Interface
+namespace EUFramework.Core.MVC.Interface
 {
     /// <summary>
     /// 查询接口，用于获取数据或状态。

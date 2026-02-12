@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using EUFarmworker.Core.MVC.CoreTool;
-using EUFarmworker.Core.MVC.Interface;
+using EUFramework.Core.MVC.CoreTool;
+using EUFramework.Core.MVC.Interface;
 using UnityEngine;
 
-namespace EUFarmworker.Core.MVC.Abstract
+namespace EUFramework.Core.MVC.Abstract
 {
     /// <summary>
     /// 架构抽象基类，实现了 IArchitecture 接口。

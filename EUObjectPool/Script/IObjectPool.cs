@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EUFarmworker.Extension.EUObjectPool
+namespace EUFramework.Extension.EUObjectPool
 {
     public interface IObjectPool<T> where T : class
     {

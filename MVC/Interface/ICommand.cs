@@ -1,6 +1,6 @@
-using EUFarmworker.Core.MVC.Interface.Can;
+using EUFramework.Core.MVC.Interface.Can;
 
-namespace EUFarmworker.Core.MVC.Interface
+namespace EUFramework.Core.MVC.Interface
 {
     /// <summary>
     /// 命令接口，用于执行特定的操作，无返回值。

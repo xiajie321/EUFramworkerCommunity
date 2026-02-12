@@ -18,7 +18,7 @@
 继承 `EUSingleton<T>`，并将自身类型作为泛型参数。
 
 ```csharp
-using EUFarmworker;
+using EUFramework;
 
 public class GameManager : EUSingleton<GameManager>
 {
@@ -43,7 +43,7 @@ GameManager.Instance.StartGame();
 继承 `EUSingletonMono<T>`，并将自身类型作为泛型参数。
 
 ```csharp
-using EUFarmworker;
+using EUFramework;
 using UnityEngine;
 
 public class AudioManager : EUSingletonMono<AudioManager>

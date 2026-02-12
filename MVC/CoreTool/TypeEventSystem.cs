@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace EUFarmworker.Core.MVC.CoreTool
+namespace EUFramework.Core.MVC.CoreTool
 {
     /// <summary>
     /// 高性能事件系统 - 运行时发送零GC

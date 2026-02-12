@@ -1,4 +1,4 @@
-# EUFarmworker Core MVC使用说明
+# EUFramework Core MVC使用说明
 
 ## 目录
 
@@ -22,7 +22,7 @@
 
 ## 简介
 
-EUFarmworker Core MVC 是一个基于 Unity 的轻量级架构框架，旨在提供清晰的代码结构和高效的开发体验。它深受 QFramework 的启发，并在此基础上进行了针对性的优化和改进，特别是在性能和类型安全方面。
+EUFramework Core MVC 是一个基于 Unity 的轻量级架构框架，旨在提供清晰的代码结构和高效的开发体验。它深受 QFramework 的启发，并在此基础上进行了针对性的优化和改进，特别是在性能和类型安全方面。
 
 ## 设计理念
 
@@ -40,7 +40,7 @@ EUFarmworker Core MVC 是一个基于 Unity 的轻量级架构框架，旨在提
 1. **事件系统优化**：
    
    - **QFramework**：通常使用对象或接口作为事件载体。
-   - **EUFarmworker**：强制使用 `struct` 作为事件载体。这利用了值类型的特性，避免了引用类型的垃圾回收（GC）开销，显著提高了高频事件发送时的性能。
+   - **EUFramework**：强制使用 `struct` 作为事件载体。这利用了值类型的特性，避免了引用类型的垃圾回收（GC）开销，显著提高了高频事件发送时的性能。
 
 2. **精简核心**：
    
@@ -57,7 +57,7 @@ EUFarmworker Core MVC 是一个基于 Unity 的轻量级架构框架，旨在提
 
 整个应用的容器，负责管理所有的 Model、System 和 Utility。它是单例的，作为访问所有模块的入口。
 
-> **重要提示**：由于 `Architecture` 使用静态泛型缓存（[CacheContainer.cs](file:///d%3A/Unity/UnityProject/EUFramworker/EUFarmworkerClient/Assets/EUFarmworker/Core/MVC/CoreTool/CacheContainer.cs)）来提升性能，它**不会**在对象销毁时自动清理。你**必须**在合适的时机显式调用 `YourArchitecture.Instance.Dispose()`。
+> **重要提示**：由于 `Architecture` 使用静态泛型缓存（[CacheContainer.cs](file:///d%3A/Unity/UnityProject/EUFramworker/EUFrameworkClient/Assets/EUFramework/Core/MVC/CoreTool/CacheContainer.cs)）来提升性能，它**不会**在对象销毁时自动清理。你**必须**在合适的时机显式调用 `YourArchitecture.Instance.Dispose()`。
 
 ### EUCore.SetArchitecture (游戏运行时的核心框架设置)
 
@@ -323,7 +323,7 @@ public class GamePanel : MonoBehaviour, IController
 
 ## 进阶指南：性能优化与最佳实践
 
-EUFarmworker Core MVC 的一大特性是极致的性能优化，特别是在 Struct 类型的 Command、Query 和 Event 中。为了避免 Struct 在调用接口方法时产生装箱（Boxing）操作（即 `this` 指针从值类型转换为引用类型接口），框架提供了一套特定的泛型扩展方法。
+EUFramework Core MVC 的一大特性是极致的性能优化，特别是在 Struct 类型的 Command、Query 和 Event 中。为了避免 Struct 在调用接口方法时产生装箱（Boxing）操作（即 `this` 指针从值类型转换为引用类型接口），框架提供了一套特定的泛型扩展方法。
 
 ### 在 Struct 中调用架构方法
 
@@ -384,4 +384,4 @@ public struct TestCommand : ICommand
 
 ## 示例代码
 
-完整的测试示例可以在 [TestCore.cs](file:///d%3A/Unity/UnityProject/EUFramworker/EUFarmworkerClient/Assets/EUFarmworker/Core/MVC/Example/Script/TestCore.cs) 中找到。
+完整的测试示例可以在 [TestCore.cs](file:///d%3A/Unity/UnityProject/EUFramworker/EUFrameworkClient/Assets/EUFramework/Core/MVC/Example/Script/TestCore.cs) 中找到。

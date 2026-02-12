@@ -2,7 +2,7 @@
 
 ## 概述
 
-Markdown文档管理器是一个基于UIToolkit的文档阅读工具，用于统一管理和浏览EUFarmworker框架中所有扩展的文档。
+Markdown文档管理器是一个基于UIToolkit的文档阅读工具，用于统一管理和浏览EUFramework框架中所有扩展的文档。
 
 ## 功能特性
 
@@ -19,7 +19,7 @@ Markdown文档管理器是一个基于UIToolkit的文档阅读工具，用于统
 在Unity编辑器菜单栏中选择：
 
 ```
-EUFarmworker -> 文档阅读器
+EUFramework -> 文档阅读器
 ```
 
 ### 浏览文档
@@ -177,9 +177,9 @@ ConfigPanel/EUMarkdownDocReader.uss
 
 如遇到问题或有改进建议，请通过以下方式反馈：
 
-- 在EUFarmworker社区仓库提交Issue
+- 在EUFramework社区仓库提交Issue
 - 联系框架维护者
 
 ## 许可证
 
-本扩展遵循EUFarmworker框架的许可证协议。
+本扩展遵循EUFramework框架的许可证协议。

@@ -7,7 +7,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace EUFarmworker.Extension.Memo
+namespace EUFramework.Extension.Memo
 {
     public class EUMemoWindow : EditorWindow
     {
@@ -79,7 +79,7 @@ namespace EUFarmworker.Extension.Memo
         // Time tracking for smooth animations
         private double lastFrameTime;
 
-        [MenuItem("EUFarmworker/拓展/EU 备忘录")]
+        [MenuItem("EUFramework/拓展/EU 备忘录")]
         public static void ShowWindow()
         {
             EUMemoWindow wnd = GetWindow<EUMemoWindow>();
@@ -286,7 +286,7 @@ namespace EUFarmworker.Extension.Memo
             LoadData();
 
             // 加载 UXML
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/EUFarmworker/Extension/EUMemo/ConfigPanel/EUMemo.uxml");
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/EUFramework/Extension/EUMemo/ConfigPanel/EUMemo.uxml");
             if (visualTree == null)
             {
                 Debug.LogError("找不到 EUMemo.uxml");
@@ -295,7 +295,7 @@ namespace EUFarmworker.Extension.Memo
             visualTree.CloneTree(rootVisualElement);
 
             // 加载 USS
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/EUFarmworker/Extension/EUMemo/ConfigPanel/EUMemo.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/EUFramework/Extension/EUMemo/ConfigPanel/EUMemo.uss");
             if (styleSheet != null)
             {
                 rootVisualElement.styleSheets.Add(styleSheet);

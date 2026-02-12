@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using EUFarmworker.Core.MVC.Abstract;
-using EUFarmworker.Core.MVC.CoreTool;
-using EUFarmworker.Core.MVC.Interface;
+using EUFramework.Core.MVC.Abstract;
+using EUFramework.Core.MVC.CoreTool;
+using EUFramework.Core.MVC.Interface;
 using UnityEngine;
 
-namespace EUFarmworker.Core.MVC.Example.Script
+namespace EUFramework.Core.MVC.Example.Script
 {
     /// <summary>
     /// 测试用事件结构体
@@ -42,7 +42,7 @@ namespace EUFarmworker.Core.MVC.Example.Script
             {
                 var qfSystem = new QFramework_TypeEventSystem();
                 
-                // EUFarmworker 使用静态类
+                // EUFramework 使用静态类
                 TypeEventSystem.Register<TestEvent>(m => { });
                 qfSystem.Register<TestEvent>(m => { });
 
@@ -67,7 +67,7 @@ namespace EUFarmworker.Core.MVC.Example.Script
                 qfSw.Stop();
                 long qfTime = qfSw.ElapsedMilliseconds;
 
-                Debug.Log($"EUFarmworker (Unicast): {euTime} ms");
+                Debug.Log($"EUFramework (Unicast): {euTime} ms");
                 Debug.Log($"QFramework (Sim Unicast): {qfTime} ms");
                 if (qfTime > 0)
                 {
@@ -110,7 +110,7 @@ namespace EUFarmworker.Core.MVC.Example.Script
                 qfSw.Stop();
                 long qfTime = qfSw.ElapsedMilliseconds;
 
-                Debug.Log($"EUFarmworker (Multicast): {euTime} ms");
+                Debug.Log($"EUFramework (Multicast): {euTime} ms");
                 Debug.Log($"QFramework (Sim Multicast): {qfTime} ms");
                 if (qfTime > 0)
                 {
@@ -159,7 +159,7 @@ namespace EUFarmworker.Core.MVC.Example.Script
                 qfSw.Stop();
                 long qfTime = qfSw.ElapsedMilliseconds;
 
-                Debug.Log($"EUFarmworker (Reg/UnReg): {euTime} ms");
+                Debug.Log($"EUFramework (Reg/UnReg): {euTime} ms");
                 Debug.Log($"QFramework (Reg/UnReg): {qfTime} ms");
                 if (qfTime > 0)
                 {

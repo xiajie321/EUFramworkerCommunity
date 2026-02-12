@@ -12,7 +12,7 @@ using UnityEngine.Networking;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
 
-namespace EUFarmworker.Extension.MarkdownDocManager
+namespace EUFramework.Extension.MarkdownDocManager
 {
     public class EUMarkdownDocReaderWindow : EditorWindow
     {
@@ -88,7 +88,7 @@ namespace EUFarmworker.Extension.MarkdownDocManager
         private const string PREF_READ_MODE = "EUMarkdownDoc_ReadMode";
         private const string PREF_UNIVERSAL_PATH = "EUMarkdownDoc_UniversalPath";
 
-        [MenuItem("EUFarmworker/拓展/Markdown文档阅读器")]
+        [MenuItem("EUFramework/拓展/Markdown文档阅读器")]
         public static void ShowWindow()
         {
             var window = GetWindow<EUMarkdownDocReaderWindow>();
@@ -195,7 +195,7 @@ namespace EUFarmworker.Extension.MarkdownDocManager
 
             // 2. 回退到默认路径
             var defaultStyleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(
-                "Assets/EUFarmworker/Extension/EUMarkdownDocManager/ConfigPanel/EUMarkdownDocReader.uss");
+                "Assets/EUFramework/Extension/EUMarkdownDocManager/ConfigPanel/EUMarkdownDocReader.uss");
             if (defaultStyleSheet != null)
             {
                 rootVisualElement.styleSheets.Add(defaultStyleSheet);
@@ -658,8 +658,8 @@ namespace EUFarmworker.Extension.MarkdownDocManager
             }
             
             // 从EditorPrefs读取EUExtensionManager配置的路径
-            string extensionRootPath = EditorPrefs.GetString("EUExtensionManager_ExtensionRootPath", "Assets/EUFarmworker/Extension");
-            string coreInstallPath = EditorPrefs.GetString("EUExtensionManager_CoreInstallPath", "Assets/EUFarmworker/Core");
+            string extensionRootPath = EditorPrefs.GetString("EUExtensionManager_ExtensionRootPath", "Assets/EUFramework/Extension");
+            string coreInstallPath = EditorPrefs.GetString("EUExtensionManager_CoreInstallPath", "Assets/EUFramework/Core");
             
             // 1. 扫描配置的扩展根目录
             string extensionRoot = extensionRootPath.StartsWith("Assets") 

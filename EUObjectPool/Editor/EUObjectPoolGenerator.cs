@@ -7,11 +7,11 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace EUFarmworker.Extension.EUObjectPool.Editor
+namespace EUFramework.Extension.EUObjectPool.Editor
 {
     public class EUObjectPoolGenerator
     {
-        [MenuItem("EUFarmworker/生成/EU对象池注册信息")]
+        [MenuItem("EUFramework/生成/EU对象池注册信息")]
         public static void Generate()
         {
             // Find all classes with EUObjectPoolAttribute
@@ -27,7 +27,7 @@ namespace EUFarmworker.Extension.EUObjectPool.Editor
             foreach (var type in types)
             {
                 if (type.IsAbstract || type.IsGenericType) continue;
-                if (!string.IsNullOrEmpty(type.Namespace) && type.Namespace != "EUFarmworker.Extension.EUObjectPool")
+                if (!string.IsNullOrEmpty(type.Namespace) && type.Namespace != "EUFramework.Extension.EUObjectPool")
                 {
                     namespaces.Add(type.Namespace);
                 }
@@ -39,7 +39,7 @@ namespace EUFarmworker.Extension.EUObjectPool.Editor
             }
 
             sb.AppendLine();
-            sb.AppendLine("namespace EUFarmworker.Extension.EUObjectPool");
+            sb.AppendLine("namespace EUFramework.Extension.EUObjectPool");
             sb.AppendLine("{");
             sb.AppendLine("    public static class EUObjectPoolManager");
             sb.AppendLine("    {");

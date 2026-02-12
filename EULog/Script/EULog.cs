@@ -2,7 +2,7 @@ using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace EUFarmworker.Extension.EULog
+namespace EUFramework.Extension.EULog
 {
     /// <summary>
     /// 高性能日志工具类

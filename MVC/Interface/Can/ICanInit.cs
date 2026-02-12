@@ -1,6 +1,6 @@
 using System;
 
-namespace EUFarmworker.Core.MVC.Interface.Can
+namespace EUFramework.Core.MVC.Interface.Can
 {
     /// <summary>
     /// 赋予对象初始化和销毁的能力
