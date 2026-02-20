@@ -1,0 +1,48 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="root" class="root">
+        
+        <!-- 左侧侧边栏 -->
+        <ui:VisualElement name="sidebar" class="sidebar">
+            <ui:Label text="EUResKit 工具" class="sidebar-title" />
+            
+            <!-- 资源配置按钮 -->
+            <ui:VisualElement name="btn-config-files-container" class="sidebar-button-container">
+                <ui:Button name="btn-config-files" class="sidebar-button">
+                    <ui:Label text="S" class="sidebar-button-icon" />
+                    <ui:VisualElement class="sidebar-button-text-container">
+                        <ui:Label text="资源配置" class="sidebar-button-title" />
+                        <ui:Label text="目录结构和配置文件" class="sidebar-button-subtitle" />
+                    </ui:VisualElement>
+                </ui:Button>
+            </ui:VisualElement>
+            
+            <!-- 代码生成按钮 -->
+            <ui:VisualElement name="btn-res-facade-container" class="sidebar-button-container">
+                <ui:Button name="btn-res-facade" class="sidebar-button">
+                    <ui:Label text="C" class="sidebar-button-icon" />
+                    <ui:VisualElement class="sidebar-button-text-container">
+                        <ui:Label text="代码生成" class="sidebar-button-title" />
+                        <ui:Label text="生成代码和开发工具" class="sidebar-button-subtitle" />
+                    </ui:VisualElement>
+                </ui:Button>
+            </ui:VisualElement>
+            
+            <!-- 模块管理工具按钮 -->
+            <ui:VisualElement name="btn-module-manager-container" class="sidebar-button-container">
+                <ui:Button name="btn-module-manager" class="sidebar-button">
+                    <ui:Label text="M" class="sidebar-button-icon" />
+                    <ui:VisualElement class="sidebar-button-text-container">
+                        <ui:Label text="模块管理工具" class="sidebar-button-title" />
+                        <ui:Label text="一键生成和清理" class="sidebar-button-subtitle" />
+                    </ui:VisualElement>
+                </ui:Button>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- 右侧内容区域 -->
+        <ui:VisualElement name="content-area" class="content-area">
+            <ui:Label name="content-label" text="👈 请选择左侧功能开始使用" class="content-label" />
+        </ui:VisualElement>
+        
+    </ui:VisualElement>
+</ui:UXML>
