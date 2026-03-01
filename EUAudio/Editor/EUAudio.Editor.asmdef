@@ -1,0 +1,18 @@
+{
+    "name": "EUAudio.Editor",
+    "rootNamespace": "EUFramwork.Extension.EUAudioKit.Editor ",
+    "references": [
+        "EUAudio"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
