@@ -8,7 +8,7 @@ namespace EUFramework.Core.MVC.CoreTool
     /// 仅供MVC内部使用，不对外暴露
     /// 
     /// 性能设计:
-    /// - 静态泛型缓存：O(1)类型查找，JIT编译时确定内存地址，无字典哈希开销
+    /// - 静态泛型缓存：利用 C# 泛型特性，在 JIT (Mono) 编译时直接生成访问地址，完全消除字典 (Dictionary) 的哈希查找开销。
     /// - 数组存储：避免委托 += 合并产生的GC分配
     /// - Send操作：完全零GC，直接索引遍历
     /// - 快速移除：使用交换删除算法，O(1)复杂度
@@ -16,7 +16,7 @@ namespace EUFramework.Core.MVC.CoreTool
     /// </summary>
     internal static class TypeEventSystem
     {
-        #region 事件缓存 - 利用静态泛型的JIT编译优势
+        #region 事件缓存 - 利用静态泛型的JIT编译/AOT代码生成优势
         
         private static class EventCache<T> where T : struct
         {
@@ -43,7 +43,15 @@ namespace EUFramework.Core.MVC.CoreTool
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void DoClear()
             {
-                Array.Clear(EventCache<T>.Handlers, 0, EventCache<T>.Count);
+                // 如果数组扩容过大，清理时重置回小数组以释放内存
+                if (EventCache<T>.Handlers.Length > 64)
+                {
+                    EventCache<T>.Handlers = new Action<T>[4];
+                }
+                else
+                {
+                    Array.Clear(EventCache<T>.Handlers, 0, EventCache<T>.Count);
+                }
                 EventCache<T>.Count = 0;
                 EventCache<T>.IsTracked = false;
             }
